@@ -7,7 +7,8 @@ createServer({
   routes() {
     this.namespace = 'api';
 
-    this.get('./transactions', () => {
+    this.get('http://localhost:3000/transactions', () => {
+
       return [
         {
           id: 1,
@@ -15,9 +16,15 @@ createServer({
           amount: 500,
           type: 'deposit',
           category: 'Food',
-          createAd: new Date(),
+          createAt: new Date(),
       }
       ]
+    })
+
+    this.post('./transactions', (schema, request) => {
+      const data = JSON.parse(request.requestBody)
+
+      return data
     })
   }
 })
